@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import Accounts from "@/database/user.model";
+import { connectToDatabase } from "@/lib/mongoose";
 
 export async function GET(request: Request) {
   try {
-    const response = await prisma.accounts.findMany();
+    connectToDatabase();
+    const response = await Accounts.find({});
 
     return Response.json({ data: response });
   } catch (error) {

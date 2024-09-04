@@ -1,24 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { Text, View } from "react-native";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import axios from "axios";
+import { useFetch } from "@/lib/fetch";
 
 const index = () => {
-  useEffect(() => {
-    const getAccounts = async () => {
-      const response = await axios.get("/(api)/accounts");
-      console.log(response);
-      return response;
-    };
-
-    getAccounts();
-  }, []);
+  const { data, loading, error } = useFetch("(api)/accounts");
+  console.log(data);
 
   return (
     <SafeAreaView>
       <View className="flex justify-center items-center h-full">
         <Text className="font-bold text-xl">
-          Table of accounts and its balances
+          Table of accounts and its balances {data}
         </Text>
       </View>
     </SafeAreaView>
@@ -26,5 +19,3 @@ const index = () => {
 };
 
 export default index;
-
-const styles = StyleSheet.create({});
